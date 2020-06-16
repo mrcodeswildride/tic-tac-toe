@@ -1,68 +1,66 @@
-var squares = document.querySelectorAll(".square");
-var message = document.getElementById("message");
+let squares = document.getElementsByClassName(`square`)
+let messageParagraph = document.getElementById(`messageParagraph`)
 
-var turn = "X";
-var gameOver = false;
+let turn = `X`
+let gameOver = false
 
-for (var i = 0; i < 9; i++) {
-    squares[i].addEventListener("click", clickSquare);
+for (let square of squares) {
+  square.addEventListener(`click`, clickSquare)
 }
 
 function clickSquare() {
-    if (!gameOver && this.innerHTML == "") {
-        this.innerHTML = turn;
-        turn = turn == "X" ? "O" : "X";
+  if (this.innerHTML == `` && !gameOver) {
+    this.innerHTML = turn
 
-        if (threeInRow("X")) {
-            gameOver = true;
-            message.innerHTML = "X wins!";
-        }
-        else if (threeInRow("O")) {
-            gameOver = true;
-            message.innerHTML = "O wins!";
-        }
-        else if (boardIsFull()) {
-            gameOver = true;
-            message.innerHTML = "Tie game";
-        }
+    if (threeInRow()) {
+      messageParagraph.innerHTML = `${turn} wins!`
+      gameOver = true
     }
+    else if (boardIsFull()) {
+      messageParagraph.innerHTML = `Tie game`
+      gameOver = true
+    }
+    else {
+      turn = turn == `X` ? `O` : `X`
+    }
+  }
 }
 
-function threeInRow(letter) {
-    if (squares[0].innerHTML == letter && squares[1].innerHTML == letter && squares[2].innerHTML == letter) {
-        return true;
-    }
-    else if (squares[3].innerHTML == letter && squares[4].innerHTML == letter && squares[5].innerHTML == letter) {
-        return true;
-    }
-    else if (squares[6].innerHTML == letter && squares[7].innerHTML == letter && squares[8].innerHTML == letter) {
-        return true;
-    }
-    else if (squares[0].innerHTML == letter && squares[3].innerHTML == letter && squares[6].innerHTML == letter) {
-        return true;
-    }
-    else if (squares[1].innerHTML == letter && squares[4].innerHTML == letter && squares[7].innerHTML == letter) {
-        return true;
-    }
-    else if (squares[2].innerHTML == letter && squares[5].innerHTML == letter && squares[8].innerHTML == letter) {
-        return true;
-    }
-    else if (squares[0].innerHTML == letter && squares[4].innerHTML == letter && squares[8].innerHTML == letter) {
-        return true;
-    }
-    else if (squares[2].innerHTML == letter && squares[4].innerHTML == letter && squares[6].innerHTML == letter) {
-        return true;
-    }
+function threeInRow() {
+  if (squares[0].innerHTML == turn && squares[1].innerHTML == turn && squares[2].innerHTML == turn) {
+    return true
+  }
+  else if (squares[3].innerHTML == turn && squares[4].innerHTML == turn && squares[5].innerHTML == turn) {
+    return true
+  }
+  else if (squares[6].innerHTML == turn && squares[7].innerHTML == turn && squares[8].innerHTML == turn) {
+    return true
+  }
+  else if (squares[0].innerHTML == turn && squares[3].innerHTML == turn && squares[6].innerHTML == turn) {
+    return true
+  }
+  else if (squares[1].innerHTML == turn && squares[4].innerHTML == turn && squares[7].innerHTML == turn) {
+    return true
+  }
+  else if (squares[2].innerHTML == turn && squares[5].innerHTML == turn && squares[8].innerHTML == turn) {
+    return true
+  }
+  else if (squares[0].innerHTML == turn && squares[4].innerHTML == turn && squares[8].innerHTML == turn) {
+    return true
+  }
+  else if (squares[2].innerHTML == turn && squares[4].innerHTML == turn && squares[6].innerHTML == turn) {
+    return true
+  }
 
-    return false;
+  return false
 }
 
 function boardIsFull() {
-    for (var i = 0; i < squares.length; i++) {
-        if (squares[i].innerHTML == "") {
-            return false;
-        }
+  for (let square of squares) {
+    if (square.innerHTML == ``) {
+      return false
     }
+  }
 
-    return true;
+  return true
 }
